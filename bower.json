@@ -1,0 +1,23 @@
+{
+  "name": "Play Chart",
+  "version": "0.0.1",
+  "homepage": "https://github.com/sadikr/playchart",
+  "author": {
+    "name": "Sadik Rupani",
+    "email": "sadik.rupani@synerzip.com"
+  },
+  "description": "Play Chart is normal line chart having some media control features like Play, Pause, Fast Forward and Rewind on chart tooltip. ",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies" : {
+    "d3" : "latest",
+    "requirejs" : "latest",
+    "jquery" : "latest"
+  }
+}
