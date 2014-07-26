@@ -1,45 +1,76 @@
+"use strict";
+var _proxySnippet = require("grunt-connect-proxy/lib/utils").proxyRequest;
+var _dirname = "app";
+var _dist = "dist";
+var _doc = "doc"
 module.exports = function(grunt){
-	'use strict';
 	
-	// load all grunt tasks matching the 'grunt-*' pattern
-	require('load-grunt-tasks')(grunt);
+	// load all grunt tasks matching the "grunt-*" pattern
+	require("load-grunt-tasks")(grunt);
 
-	// configure the tasks
+	/**
+	 * [grunt.initConfig configure the tasks with grunt]
+	 * @return {[type]}
+	 */
 	grunt.initConfig({
-		pkg : grunt.file.readJSON('package.json'),
-		// jshint task.
+
+		pkg : grunt.file.readJSON("package.json"),
+		
+		// grunt-jshint
 		jshint: {
-			files : ['Gruntfile.js','app/**/*.js'],
-			jshintrc: true
-		},
-		// static server task
-		connect : {
-			'static':{
-				options : {
-					host: 'http',
-					hostname : 'localhost',
-					port:9999,
-					keepalive:true,
-					base: ['.'],
+			options: {
+				jshintrc: true
+			},
+			"gruntfile" :{
+				files : {
+					src : ["Gruntfile.js"]
 				}
 			},
+			"application" : {
+				files: {
+					src : ["<%=_dirname%>/**/*.js"]
+				}
+			}
 		},
-		// grunt-open will open the browser with the provide project url.
-		open : {
-			'open':{
-				path : '<%connect.static.host%>://<%connect.static.hostname%>:<%connect.static.port%>'
+
+		// grunt-express 
+		express : {
+			all : {
+				options : {
+					host:"http",
+					port: 9000,
+					hostname: "localhost",
+					bases : [_dirname],
+					livereload: true
+				}
+			}
+		},
+
+		// grunt-open
+		open :{
+			all: {
+				path: "<%=express.all.options.host%>://<%=express.all.options.hostname%>:<%=express.all.options.port%>"
 			}
 		},
 
 		// grunt-watch to keep an eye on the code. 
 		watch : {
-			
+			all : {
+				options: {
+	    			dateFormat: function(time) {
+			      		grunt.log.write('The watch finished in ' + time + 'ms at' + (new Date()).toString());
+			      		grunt.log.write('Waiting for more changes...');
+		      		},
+		      		livereload: true
+			    },
+			    files : ["app/**/*.js"],
+			    tasks : ['validate:application']
+			}
 		}
 		
 	});
 
 	// register tasks
-	grunt.registerTask('validate',['jshint']);
-	grunt.registerTask('default',['open','watch','connect:static']);
-	
+	grunt.registerTask("validate",["jshint:gruntfile","jshint:application"]);
+	grunt.registerTask("server",["express","open","watch"]);
 };
