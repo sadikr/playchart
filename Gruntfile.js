@@ -1,11 +1,13 @@
-"use strict";
+/*jshint global*/
 var _proxySnippet = require("grunt-connect-proxy/lib/utils").proxyRequest;
 var _dirname = "app";
-var _dist = "dist";
-var _doc = "doc"
+var _dist = "dist";	
+var _doc = "doc";
+/*jshint global*/
 module.exports = function(grunt){
-	
+	"use strict";
 	// load all grunt tasks matching the "grunt-*" pattern
+	/*jshint global*/
 	require("load-grunt-tasks")(grunt);
 
 	/**
@@ -63,7 +65,7 @@ module.exports = function(grunt){
 		      		},
 		      		livereload: true
 			    },
-			    files : ["app/**/*.js"],
+			    files : ["<%=_dirname%>/**/*.js"],
 			    tasks : ['validate:application']
 			}
 		}

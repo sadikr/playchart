@@ -15,8 +15,7 @@
       "url": "--"
     }
   ],
-  "engines": {
-  },
+  "engines": {},
   "scripts": {
     "install": "bower install",
     "test": ""
@@ -29,9 +28,9 @@
     "grunt-contrib-jshint": "*",
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "*",
-    "grunt-express":"*",
-    "grunt-open":"*"
-
+    "grunt-contrib-yuidoc": "^0.5.2",
+    "grunt-express": "*",
+    "grunt-open": "*"
   },
   "devDependencies": {
     "load-grunt-tasks": "*"

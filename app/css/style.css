@@ -1,0 +1,7 @@
+body {
+	margin: auto 20px;
+}
+.wrapper {
+	width: 100%
+}
+.button_wrapper ul li { display: inline;list-style: none;}
