@@ -1,12 +1,15 @@
 /*jshint global*/
-var _proxySnippet = require("grunt-connect-proxy/lib/utils").proxyRequest;
-var _dirname = "app";
-var _dist = "dist";	
-var _doc = "doc";
-/*jshint global*/
 module.exports = function(grunt){
 	"use strict";
-	// load all grunt tasks matching the "grunt-*" pattern
+
+	var appConfig = {
+		_dirname : "app",
+		_dist : "dist",
+		_doc : "doc"
+	};
+	//////////////////////////////////////////////////////////
+	// load all grunt tasks matching the "grunt-*" pattern //
+	//////////////////////////////////////////////////////////
 	/*jshint global*/
 	require("load-grunt-tasks")(grunt);
 
@@ -18,7 +21,9 @@ module.exports = function(grunt){
 
 		pkg : grunt.file.readJSON("package.json"),
 		
-		// grunt-jshint
+		////////////////////
+		// grunt-jshint //
+		////////////////////
 		jshint: {
 			options: {
 				jshintrc: true
@@ -30,32 +35,38 @@ module.exports = function(grunt){
 			},
 			"application" : {
 				files: {
-					src : ["<%=_dirname%>/**/*.js"]
+					src : ["<%=appConfig._dirname%>/**/*.js"]
 				}
 			}
 		},
 
-		// grunt-express 
+		//////////////////////
+		// grunt-express  //
+		//////////////////////
 		express : {
 			all : {
 				options : {
 					host:"http",
 					port: 9000,
 					hostname: "localhost",
-					bases : [_dirname],
+					bases : [appConfig._dirname],
 					livereload: true
 				}
 			}
 		},
 
-		// grunt-open
+		//////////////////
+		// grunt-open //
+		//////////////////
 		open :{
 			all: {
 				path: "<%=express.all.options.host%>://<%=express.all.options.hostname%>:<%=express.all.options.port%>"
 			}
 		},
 
-		// grunt-watch to keep an eye on the code. 
+		////////////////////////////////////////////////
+		// grunt-watch to keep an eye on the code.  //
+		////////////////////////////////////////////////
 		watch : {
 			all : {
 				options: {
@@ -65,14 +76,16 @@ module.exports = function(grunt){
 		      		},
 		      		livereload: true
 			    },
-			    files : ["<%=_dirname%>/**/*.js"],
-			    tasks : ['validate:application']
+			    files : [appConfig._dirname+"/**/*.js"],
+			    // tasks : ['validate:application']
 			}
 		}
 		
 	});
 
-	// register tasks
+	/////////////////////
+	// register tasks //
+	/////////////////////
 	grunt.registerTask("validate",["jshint:gruntfile","jshint:application"]);
 	grunt.registerTask("server",["express","open","watch"]);
 };
